@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: local
+  #  mysql 사용시
+  datasource:
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    username: root
+    #    password: 1234
+    #    url: jdbc:mysql://mysql-container:3306/app
+    url: jdbc:h2:tcp://localhost/~/prologueBe
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        # Querydsl query
+        use_sql_comments: true
+springdoc:
+  api-docs:
+    path: /api  # API 문서의 경로를 /api로 설정
