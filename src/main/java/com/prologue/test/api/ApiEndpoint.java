@@ -15,19 +15,23 @@ public class ApiEndpoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "api_endpoint_id")
     private Long id;
-
-    @Column(nullable = false)
-    private String endpoint;
 
     @Column(nullable = false)
     private String method;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "api_service_id")
-    private ApiService apiService;
+    @Column(nullable = false)
+    private String endPointName;
 
-    public static ApiEndpoint createEndpoint(String endpoint, String method, ApiService apiService) {
-        return new ApiEndpoint(null, endpoint, method, apiService);
+    @Column(nullable = false)
+    private String endpoint;
+
+    @JoinColumn(name = "micro_service_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MicroService microService;
+
+    public static ApiEndpoint createEndpoint(String method, String endPointName, String endpoint, MicroService microService) {
+        return new ApiEndpoint(null, method, endPointName, endpoint, microService);
     }
 }
