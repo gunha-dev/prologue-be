@@ -6,15 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "api_endpoints")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ApiEndpoint {
+public class RouterEndpoint {
 
     // Kong의 Route
 
@@ -36,8 +33,7 @@ public class ApiEndpoint {
     @ManyToOne(fetch = FetchType.LAZY)
     private MicroService microService;
 
-
-    public static ApiEndpoint createEndpoint(String method, String endPointName, String endpoint, MicroService microService) {
-        return new ApiEndpoint(null, method, endPointName, endpoint, microService);
+    public static RouterEndpoint createEndpoint(String method, String endPointName, String endpoint, MicroService microService) {
+        return new RouterEndpoint(null, method, endPointName, endpoint, microService);
     }
 }

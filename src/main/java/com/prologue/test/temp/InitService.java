@@ -33,7 +33,7 @@ public class InitService {
 
         for (int i = 0; i < 2; i++) {
             String microServiceName = "MicroService" + i;
-            microServices[i] = apiService.registerMicroService(domainData[i], microServiceName, protocols);
+//            microServices[i] = apiService.registerMicroService(domainData[i], microServiceName, protocols);
         }
 
         String[] methodData = new String[]{"GET", "POST", "PUT", "DELETE"};

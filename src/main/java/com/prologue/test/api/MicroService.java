@@ -1,5 +1,6 @@
 package com.prologue.test.api;
 
+import com.prologue.test.admin.KongServiceDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -7,9 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "micro_services")
@@ -25,31 +24,38 @@ public class MicroService {
     private Long id;
 
     @Column(nullable = false)
-    private String domain;
+    private String protocol;
+
+    @Column(nullable = false)
+    private String host;
+
+    @Column(nullable = false)
+    private int port;
+
+    @Column(nullable = false)
+    private String path;
 
     @Column(nullable = false)
     private String serviceName;
 
     @OneToMany(mappedBy = "microService", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ApiEndpoint> endpoint;
+    private List<RouterEndpoint> routerEndpoint;
 
     @Enumerated(EnumType.STRING)
     private MicroServiceStatus status;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(
-            name = "micro_service_protocols",
-            joinColumns = @JoinColumn(name = "micro_service_id")
-    )
-    @Enumerated(EnumType.STRING)
-    @Column(name = "protocol")
-    private Set<Protocol> protocols;
-
-    public static MicroService createMicroService(String domain, String microServiceName, Set<Protocol> protocols) {
-        return new MicroService(null, domain, microServiceName, new ArrayList<>(), MicroServiceStatus.PENDING, protocols);
+    public static MicroService createMicroService(KongServiceDto kongServiceDto) {
+        return new MicroService(null, kongServiceDto.getProtocol(), kongServiceDto.getHost(), kongServiceDto.getPort(), kongServiceDto.getPath(), kongServiceDto.getName(), new ArrayList<>(), MicroServiceStatus.PENDING);
     }
 
     public void changeStatus(MicroServiceStatus microServiceStatus) {
         this.status = microServiceStatus;
+    }
+
+    // route의 url은 세부 url, 서로 다른 url
+    // {protocol}://{host}:{port}{path} 반환
+    public String getMicroServiceUrl() {
+        StringBuilder url = new StringBuilder();
+        return url.append(this.protocol).append("://").append(this.host).append(":").append(this.port).append(this.path).toString();
     }
 }

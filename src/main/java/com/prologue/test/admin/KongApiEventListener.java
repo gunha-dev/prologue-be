@@ -24,18 +24,16 @@ public class KongApiEventListener {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleMicroServiceRegistration(MicroServiceRegisteredEvent event) {
 
-        log.info("handleMicroServiceRegistration start");
-        MicroService microService = microServiceRepository.findById(event.getMicroServiceId())
+        KongServiceDto kongServiceDto = event.getKongServiceDto();
+        MicroService microService = microServiceRepository.findByServiceName(kongServiceDto.getName())
                 .orElseGet(() -> {
-                    log.error("CRITICAL: DB 트랜잭션 commit 후 데이터를 찾을 수 없습니다! microServiceId: {}", event.getMicroServiceId());
+                    log.error("CRITICAL: DB 트랜잭션 commit 후 데이터를 찾을 수 없습니다! microServiceId: {}", kongServiceDto.getName());
                     throw new IllegalStateException("데이터 정합성 오류: 서비스를 찾을 수 없습니다.");
                 });
 
         try {
 
-            // TODO
-            log.info("kongApiClient.requestKongCP() call");
-            kongApiClient.requestKongCP();
+            kongApiClient.requestKongCP(kongServiceDto);
 
             microService.changeStatus(MicroServiceStatus.ACTIVE);
             log.info("Kong 연동 성공 > Status: ACTIVE / ID: {}", microService.getId());

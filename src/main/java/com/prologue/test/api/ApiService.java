@@ -1,5 +1,6 @@
 package com.prologue.test.api;
 
+import com.prologue.test.admin.KongServiceDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -19,41 +20,30 @@ public class ApiService {
     private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
-    public MicroService registerMicroService(String domain, String microServiceName, Set<Protocol> protocols) {
-
-        log.info("registerMicroService start");
-        if (microServiceRepository.existsByServiceName(microServiceName)) {
+    public MicroService registerMicroService(KongServiceDto kongServiceDto) {
+        if (microServiceRepository.existsByServiceName(kongServiceDto.getName())) {
             throw new IllegalStateException("이미 존재하는 마이크로서비스 이름입니다.");
         }
 
-        MicroService createdMicroService = MicroService.createMicroService(domain, microServiceName, protocols);
+        MicroService createdMicroService = MicroService.createMicroService(kongServiceDto);
         microServiceRepository.save(createdMicroService);
 
-        // TODO
-        log.info("eventPublisher.publishEvent start");
-        eventPublisher.publishEvent(new MicroServiceRegisteredEvent(
-                createdMicroService.getId(),
-                createdMicroService.getServiceName()
-        ));
-        log.info("eventPublisher.publishEvent end");
-
+        eventPublisher.publishEvent(new MicroServiceRegisteredEvent(kongServiceDto));
         return createdMicroService;
     }
 
     @Transactional
-    public ApiEndpoint registerApiEndpoint(ApiEndpointCreateDTO apiEndpointCreateDTO) {
+    public RouterEndpoint registerApiEndpoint(ApiEndpointCreateDTO apiEndpointCreateDTO) {
         MicroService microService = microServiceRepository.findById(apiEndpointCreateDTO.getMicroServiceId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 MicroService가 존재하지 않습니다."));
 
-        ApiEndpoint createdApiEndpoint = ApiEndpoint.createEndpoint(
+        RouterEndpoint createdRouterEndpoint = RouterEndpoint.createEndpoint(
                 apiEndpointCreateDTO.getMethod(),
                 apiEndpointCreateDTO.getEndPointName(),
                 apiEndpointCreateDTO.getEndPoint(),
                 microService);
 
-        apiEndPointRepository.save(createdApiEndpoint);
-        return createdApiEndpoint;
+        apiEndPointRepository.save(createdRouterEndpoint);
+        return createdRouterEndpoint;
     }
-
-
 }

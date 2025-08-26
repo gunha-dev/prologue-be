@@ -1,5 +1,5 @@
 package com.prologue.test.admin;
 
 public interface ApiRequest {
-    void requestKongCP();
+    void requestKongCP(KongServiceDto kongServiceDto);
 }
