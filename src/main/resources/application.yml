@@ -24,3 +24,8 @@ spring:
 springdoc:
   api-docs:
     path: /api  # API 문서의 경로를 /api로 설정
+config:
+  import: optional:file:.env[.properties]
+logging:
+  file:
+    name: prologue-app.log
