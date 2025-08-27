@@ -7,21 +7,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "api_endpoints")
+@Table(name = "routers")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class RouterEndpoint {
-
-    // Kong의 Route
+public class Router {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "api_endpoint_id")
+    @Column(name = "router_id")
     private Long id;
 
     @Column(nullable = false)
-    private String method;
+    private HttpMethod method;
 
     @Column(nullable = false)
     private String endPointName;
@@ -33,7 +31,17 @@ public class RouterEndpoint {
     @ManyToOne(fetch = FetchType.LAZY)
     private MicroService microService;
 
-    public static RouterEndpoint createEndpoint(String method, String endPointName, String endpoint, MicroService microService) {
-        return new RouterEndpoint(null, method, endPointName, endpoint, microService);
+    @Enumerated(EnumType.STRING)
+    private KongAdminApiStatus status;
+
+    private String description;
+
+    public static Router createEndpoint(HttpMethod method, String endPointName, String endpoint, MicroService microService, String description) {
+        return new Router(null, method, endPointName, endpoint, microService, KongAdminApiStatus.PENDING, description);
     }
+
+    public void changeAdminApiStatus(KongAdminApiStatus kongAdminApiStatus) {
+        this.status = kongAdminApiStatus;
+    }
+
 }

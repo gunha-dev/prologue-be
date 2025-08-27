@@ -1,4 +1,4 @@
-package com.prologue.test.admin;
+package com.prologue.test.admin.kongServiceDto;
 
 import lombok.Getter;
 

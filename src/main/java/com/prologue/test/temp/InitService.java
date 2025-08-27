@@ -44,7 +44,7 @@ public class InitService {
             MicroService microService = microServices[i];
             for (int j = 0; j < 4; j++) {
                 ApiEndpointCreateDTO apiEndpointCreateDTO = new ApiEndpointCreateDTO(methodData[j], endPointName+j, endPoint, microService.getId());
-                apiService.registerApiEndpoint(apiEndpointCreateDTO);
+//                apiService.registerApiEndpoint(apiEndpointCreateDTO);
             }
         }
     }

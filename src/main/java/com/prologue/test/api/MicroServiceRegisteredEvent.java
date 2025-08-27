@@ -1,6 +1,6 @@
 package com.prologue.test.api;
 
-import com.prologue.test.admin.KongServiceDto;
+import com.prologue.test.admin.kongServiceDto.KongServiceDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
