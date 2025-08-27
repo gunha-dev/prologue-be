@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "micro_services")
@@ -16,10 +18,15 @@ import java.util.List;
 public class MicroService {
 
     // Kong의 Service
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "micro_service_id")
+//    private Long id;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "micro_service_id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "BINARY(16)", name="micro_service_uuid")
+    private UUID id;
 
     @Column(nullable = false)
     private String protocol;
@@ -45,7 +52,7 @@ public class MicroService {
     @Enumerated(EnumType.STRING)
     private KongAdminApiStatus status;
 
-    private MicroService(Long id, String protocol, String host, int port, String path, String serviceName, String version, List<Router> router, KongAdminApiStatus kongAdminApiStatus) {
+    private MicroService(UUID id, String protocol, String host, int port, String path, String serviceName, String version, List<Router> router, KongAdminApiStatus kongAdminApiStatus) {
         this.id = id;
         this.protocol = protocol;
         this.host = host;
@@ -57,7 +64,7 @@ public class MicroService {
         this.status = kongAdminApiStatus;
     }
 
-    private MicroService(Long id, String protocol, String host, int port, String path, String serviceName, List<Router> router, KongAdminApiStatus status) {
+    private MicroService(UUID id, String protocol, String host, int port, String path, String serviceName, List<Router> router, KongAdminApiStatus status) {
         this.id = id;
         this.protocol = protocol;
         this.host = host;

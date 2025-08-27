@@ -62,7 +62,7 @@ public class KongApiEventListener {
                         .createKongAdminApiRouterDto(kongRouterDto.getRouterName(),
                                 kongRouterDto.getHttpMethod().get(0),
                                 kongRouterDto.getEndpoints(),
-                                findRouter.getId()));
+                                findRouter.getMicroService().getId()));
 
                 findRouter.changeAdminApiStatus(KongAdminApiStatus.ACTIVE);
                 log.info("Kong 연동 성공 > Status: ACTIVE / ID: {}", findRouter.getId());
