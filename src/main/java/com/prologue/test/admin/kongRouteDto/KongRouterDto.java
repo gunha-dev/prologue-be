@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -14,7 +15,7 @@ public class KongRouterDto {
     private String routerName;
     private String description;
     private List<String> endpoints;
-    private List<HttpMethod> httpMethod;
+    private Set<HttpMethod> httpMethod;
 
     public static KongRouterDto createFromInput(KongRouteCreateRequestInput kongRouteCreateRequestInput) {
         List<String> endpoints = kongRouteCreateRequestInput
@@ -26,6 +27,6 @@ public class KongRouterDto {
                 kongRouteCreateRequestInput.getRouterName(),
                 kongRouteCreateRequestInput.getDescription(),
                 endpoints,
-                List.of(kongRouteCreateRequestInput.getHttpMethod()));
+                Set.of(kongRouteCreateRequestInput.getHttpMethod()));
     }
 }

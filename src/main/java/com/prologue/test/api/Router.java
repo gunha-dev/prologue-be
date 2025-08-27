@@ -1,5 +1,6 @@
 package com.prologue.test.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class Router {
     private String endpoint;
 
     @JoinColumn(name = "micro_service_id")
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private MicroService microService;
 

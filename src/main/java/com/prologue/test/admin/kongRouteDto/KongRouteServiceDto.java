@@ -2,11 +2,13 @@ package com.prologue.test.admin.kongRouteDto;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class KongRouteServiceDto {
-    private String id;
+    private UUID id;
 
-    public KongRouteServiceDto(Long id) {
-        this.id = id.toString();
+    public KongRouteServiceDto(UUID id) {
+        this.id = id;
     }
 }

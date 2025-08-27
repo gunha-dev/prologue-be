@@ -57,7 +57,7 @@ public class ApiService {
 
         List<Router> routersToSave = fromInputDto.getEndpoints().stream()
                 .map(endpoint -> Router.createEndpoint(
-                        fromInputDto.getHttpMethod().get(0),
+                        fromInputDto.getHttpMethod().stream().findFirst().get(),
                         fromInputDto.getRouterName(),
                         endpoint,
                         findMicroService,

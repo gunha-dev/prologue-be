@@ -60,7 +60,7 @@ public class KongApiEventListener {
             try {
                 openFeignKongAdminApi.registerRouter(KongAdminApiRouterDto
                         .createKongAdminApiRouterDto(kongRouterDto.getRouterName(),
-                                kongRouterDto.getHttpMethod().get(0),
+                                kongRouterDto.getHttpMethod(),
                                 kongRouterDto.getEndpoints(),
                                 findRouter.getMicroService().getId()));
 
