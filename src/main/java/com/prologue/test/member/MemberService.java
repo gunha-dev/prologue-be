@@ -1,11 +1,10 @@
 package com.prologue.test.member;
 
-import com.prologue.test.config.exception.BadMemberIdException;
+import com.prologue.test.config.exception.BadMemberEmailException;
 import com.prologue.test.config.exception.BadPasswordException;
 import com.prologue.test.member.dto.MemberLoginInputDto;
 import com.prologue.test.member.dto.MemberLoginResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,11 +24,11 @@ public class MemberService {
 
     public MemberLoginResponseDto login(MemberLoginInputDto memberLoginInputDto) {
         String inputId = memberLoginInputDto.getInputId();
-        Member findMember = memberRepository.findByMemberId(inputId)
-                .orElseThrow(BadMemberIdException::new);
+        Member findMember = memberRepository.findByMemberEmail(inputId)
+                .orElseThrow(BadMemberEmailException::new);
         if(!findMember.getPassword().equals(memberLoginInputDto.getInputPassword())) {
             throw new BadPasswordException();
         }
-        return new MemberLoginResponseDto(findMember.getMemberId(), findMember.getNickname(), findMember.getRole());
+        return new MemberLoginResponseDto(findMember.getMemberEmail(), findMember.getNickname(), findMember.getRole());
     }
 }

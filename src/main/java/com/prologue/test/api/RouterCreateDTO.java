@@ -7,13 +7,13 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-public class ApiEndpointCreateDTO {
+public class RouterCreateDTO {
     private String method;
     private String endPointName;
     private String endPoint;
     private UUID microServiceId;
 
-    public ApiEndpointCreateDTO(String method, String endPointName, String endPoint, UUID microServiceId) {
+    public RouterCreateDTO(String method, String endPointName, String endPoint, UUID microServiceId) {
         this.method = method;
         this.endPointName = endPointName;
         this.endPoint = endPoint;
