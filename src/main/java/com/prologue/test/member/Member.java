@@ -24,11 +24,13 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
+    private String nickname;
+
     @Enumerated(EnumType.STRING)
     @ColumnDefault("'MEMBER'")
     private MemberRole role;
 
-    public static Member createMember(String memberId, String memberPassword){
-        return new Member(null, memberId, memberPassword, MemberRole.MEMBER);
+    public static Member createMember(String memberId, String memberPassword, String nickname){
+        return new Member(null, memberId, memberPassword, nickname, MemberRole.MEMBER);
     }
 }

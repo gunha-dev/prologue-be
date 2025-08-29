@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class tempInitGenerator {
 
-    private final InitService initService; // 분리된 InitService를 주입
+    private final InitService initService;
 
-//    @PostConstruct
-//    public void init() {
-//        initService.init();
-//    }
+    @PostConstruct
+    public void init() {
+        initService.init();
+    }
 }

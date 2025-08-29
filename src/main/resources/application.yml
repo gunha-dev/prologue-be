@@ -10,7 +10,7 @@ spring:
     #    password: 1234
     #    url: jdbc:mysql://mysql-container:3306/app
     url: jdbc:h2:tcp://localhost/~/prologueBe
-    username: gunha
+    username: sa
     password:
     driver-class-name: org.h2.Driver
   jpa:

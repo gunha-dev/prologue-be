@@ -22,30 +22,10 @@ public class InitService {
     public void init() {
         log.info("init >>");
         for (int i = 1; i <= 5; i++) {
-            String inputId = "test" + i;
-            String inputPassword = "test" + i;
-            memberService.joinMember(inputId, inputPassword);
-        }
-
-        String[] domainData = new String[]{"localhost:7777/", "localhost:7778/"};
-        MicroService[] microServices = new MicroService[2];
-        Set<Protocol> protocols = Set.of(Protocol.HTTP, Protocol.HTTPS);
-
-        for (int i = 0; i < 2; i++) {
-            String microServiceName = "MicroService" + i;
-//            microServices[i] = apiService.registerMicroService(domainData[i], microServiceName, protocols);
-        }
-
-        String[] methodData = new String[]{"GET", "POST", "PUT", "DELETE"};
-        String endPointName = "endpoint";
-        String endPoint = "api/v1";
-
-        for (int i = 0; i < 2; i++) {
-            MicroService microService = microServices[i];
-            for (int j = 0; j < 4; j++) {
-                ApiEndpointCreateDTO apiEndpointCreateDTO = new ApiEndpointCreateDTO(methodData[j], endPointName+j, endPoint, microService.getId());
-//                apiService.registerApiEndpoint(apiEndpointCreateDTO);
-            }
+            String generatedId = "test" + i;
+            String generatedPassword = "test" + i;
+            String generatedNickname = "nickname"+i;
+            memberService.joinMember(generatedId, generatedPassword, generatedNickname);
         }
     }
 }
