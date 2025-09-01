@@ -1,6 +1,7 @@
 package com.prologue.test.api;
 
 import com.prologue.test.admin.kongServiceDto.KongServiceDto;
+import com.prologue.test.audit.BaseAuditEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -15,13 +16,7 @@ import java.util.UUID;
 @Table(name = "micro_services")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MicroService {
-
-    // Kong의 Service
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "micro_service_id")
-//    private Long id;
+public class MicroService extends BaseAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -18,10 +18,9 @@ public class InitService {
     private final MemberService memberService;
     private final BoardService boardService;
     private final PostService postService;
-    private final ApiService apiService;
 
     public void init() {
-        log.info("init >>");
+        log.info("initService.init() >>");
         for (int i = 1; i <= 5; i++) {
             String generatedId = "test" + i;
             String generatedPassword = "test" + i;
@@ -29,7 +28,7 @@ public class InitService {
             memberService.joinMember(generatedId, generatedPassword, generatedNickname);
         }
 
-        Board createdBoard = boardService.createBoard("board1");
+        Board createdBoard = boardService.createBoard("oas");
 
         for (int i = 1; i <= 5; i++) {
             for (int j = 1; j <= 5; j++) {

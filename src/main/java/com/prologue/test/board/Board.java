@@ -1,5 +1,6 @@
 package com.prologue.test.board;
 
+import com.prologue.test.audit.BaseAuditEntity;
 import com.prologue.test.post.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Board {
+public class Board extends BaseAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

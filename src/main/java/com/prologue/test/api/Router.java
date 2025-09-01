@@ -1,6 +1,7 @@
 package com.prologue.test.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.prologue.test.audit.BaseAuditEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Router {
+public class Router extends BaseAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

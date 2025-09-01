@@ -1,6 +1,7 @@
 package com.prologue.test.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.prologue.test.audit.BaseAuditEntity;
 import com.prologue.test.board.Board;
 import com.prologue.test.member.Member;
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Post {
+public class Post extends BaseAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +31,13 @@ public class Post {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
+    
+    private String postTitle;
 
+    @Lob
+    private String postContent;
 
-    public static Post createPost(Board board, Member author) {
-        return new Post(null, board, author);
+    public static Post createPost(Board board, Member author, String title, String content) {
+        return new Post(null, board, author, title, content);
     }
 }

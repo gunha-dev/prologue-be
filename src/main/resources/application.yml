@@ -5,14 +5,14 @@ spring:
     active: local
   #  mysql 사용시
   datasource:
-    #    driver-class-name: com.mysql.cj.jdbc.Driver
-    #    username: root
-    #    password: 1234
-    #    url: jdbc:mysql://mysql-container:3306/app
-    url: jdbc:h2:tcp://localhost/~/prologueBe
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+    url: jdbc:mysql://localhost:3306/prologueBe
+#    url: jdbc:h2:tcp://localhost/~/prologueBe
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create
@@ -29,6 +29,12 @@ kong-admin:
     url: localhost:8001
 config:
   import: optional:file:.env[.properties]
+#logging:
+#  file:
+#    name: prologue-app.log
 logging:
-  file:
-    name: prologue-app.log
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type : trace

@@ -1,5 +1,6 @@
 package com.prologue.test.member;
 
+import com.prologue.test.audit.BaseAuditEntity;
 import com.prologue.test.post.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Member {
+public class Member extends BaseAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
